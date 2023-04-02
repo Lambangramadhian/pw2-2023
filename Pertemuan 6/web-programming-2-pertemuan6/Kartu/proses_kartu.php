@@ -3,27 +3,28 @@
 require_once '../dbkoneksi.php';
 
 // Ambil data dari form
-$_nomor = $_POST['nomor'];
+$_kode = $_POST['kode'];
 $_nama = $_POST['nama'];
-$_kota = $_POST['kota'];
-$_kontak = $_POST['kontak'];
+$_diskon = $_POST['diskon'];
+$_iuran = $_POST['iuran'];
 
 $_proses = $_POST['proses'];
 
 // Simpan data ke dalam array
-$ar_data[] = $_nomor;
+$ar_data[] = $_kode;
 $ar_data[] = $_nama;
-$ar_data[] = $_kota;
-$ar_data[] = $_kontak;
+$ar_data[] = $_diskon;
+$ar_data[] = $_iuran;
+
 
 // Cek aksi yang dilakukan: Simpan atau Update
 if($_proses == "Simpan"){
     // Jika Simpan, buat SQL INSERT
-    $sql = "INSERT INTO vendor (nomor, nama, kota, kontak) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO kartu (kode, nama, diskon, iuran) VALUES (?, ?, ?, ?)";
 }else if($_proses == "Update"){
     // Jika Update, tambahkan ID ke array dan buat SQL UPDATE
     $ar_data[] = $_POST['id'];
-    $sql = "UPDATE vendor SET nomor=?, nama=?, kota=?, kontak=? WHERE id=?";
+    $sql = "UPDATE kartu SET kode=?, nama=?, diskon=?, iuran=? WHERE id=?";
 }
 
 // Jika ada perintah SQL, jalankan perintah prepare dan execute dengan array data
@@ -33,5 +34,5 @@ if(isset($sql)){
 }
 
 // Redirect ke halaman daftar produk
-header('location:list_vendor.php');
+header('location:list_kartu.php');
 ?>

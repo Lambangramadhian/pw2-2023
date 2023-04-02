@@ -6,8 +6,8 @@ require_once '../dbkoneksi.php';
     // cek apakah terdapat parameter id pada URL, jika ada maka dilakukan edit data
     $_id = isset($_GET['id']) ? $_GET['id'] : null;
     if(!empty($_id)){
-        // ambil data vendor berdasarkan id
-        $sql = "SELECT * FROM vendor WHERE id=?";
+        // ambil data kartu berdasarkan id
+        $sql = "SELECT * FROM kartu WHERE id=?";
         $st = $dbh->prepare($sql);
         $st->execute([$_id]);
         $row = $st->fetch();
@@ -18,9 +18,9 @@ require_once '../dbkoneksi.php';
     }
 ?>
 
-<form method="POST" action="proses_vendor.php">
+<form method="POST" action="proses_kartu.php">
   <div class="form-group row">
-    <label for="nomor" class="col-4 col-form-label">Nomor</label> 
+    <label for="kode" class="col-4 col-form-label">Kode</label> 
     <div class="col-8">
       <div class="input-group">
         <div class="input-group-prepend">
@@ -28,8 +28,8 @@ require_once '../dbkoneksi.php';
             <i class="fa fa-anchor"></i>
           </div>
         </div> 
-        <input id="nomor" name="nomor" type="text" class="form-control"
-        value="<?php if(isset($row['nomor'])) echo $row['nomor']; ?>">
+        <input id="kode" name="kode" type="type" class="form-control"
+        value="<?php if(isset($row['kode'])) echo $row['kode']; ?>">
       </div>
     </div>
   </div>
@@ -48,7 +48,7 @@ require_once '../dbkoneksi.php';
     </div>
   </div>
   <div class="form-group row">
-    <label for="kota" class="col-4 col-form-label">Kota</label> 
+    <label for="diskon" class="col-4 col-form-label">Diskon</label> 
     <div class="col-8">
       <div class="input-group">
         <div class="input-group-prepend">
@@ -56,13 +56,13 @@ require_once '../dbkoneksi.php';
             <i class="fa fa-arrow-circle-o-left"></i>
           </div>
         </div> 
-        <input id="kota" name="kota" 
-        value="<?php if(isset($row['kota'])) echo $row['kota']; ?>" type="text" class="form-control">
+        <input id="diskon" name="diskon" 
+        value="<?php if(isset($row['diskon'])) echo $row['diskon']; ?>" type="text" class="form-control">
       </div>
     </div>
   </div>
   <div class="form-group row">
-    <label for="kontak" class="col-4 col-form-label">Kontak</label> 
+    <label for="iuran" class="col-4 col-form-label">Iuran</label> 
     <div class="col-8">
       <div class="input-group">
         <div class="input-group-prepend">
@@ -70,8 +70,8 @@ require_once '../dbkoneksi.php';
             <i class="fa fa-arrow-circle-up"></i>
           </div>
         </div> 
-        <input id="kontak" name="kontak" value="<?php if(isset($row['kontak'])) echo $row['kontak']; ?>"
-        type="text" class="form-control">
+        <input id="iuran" name="iuran" value="<?php if(isset($row['iuran'])) echo $row['iuran']; ?>"
+        type="number" class="form-control">
       </div>
     </div>
   </div>
@@ -81,7 +81,7 @@ require_once '../dbkoneksi.php';
     <?php
         $button = (empty($_id)) ? "Simpan":"Update"; 
     ?>
-
+    
       <input type="submit" name="proses" type="submit" 
       class="btn btn-primary" value="<?= $button ?>"/>
       <input type="hidden" name="id" value="<?= $_id ?>"/>

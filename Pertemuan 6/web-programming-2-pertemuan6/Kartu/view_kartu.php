@@ -6,8 +6,8 @@ require_once '../dbkoneksi.php';
     // Mendapatkan nilai id dari parameter GET
     $_id = $_GET['id'];
 
-    // Membuat query SQL untuk mengambil data vendor dengan id tertentu
-    $sql = "SELECT * FROM vendor WHERE id=?";
+    // Membuat query SQL untuk mengambil data kartu dengan id tertentu
+    $sql = "SELECT * FROM kartu WHERE id=?";
     $st = $dbh->prepare($sql);
 
     // Menjalankan query dengan parameter id yang telah didapatkan sebelumnya
@@ -17,7 +17,7 @@ require_once '../dbkoneksi.php';
     $row = $st->fetch();
 ?>
 
-<!-- Menampilkan data vendor dalam bentuk tabel -->
+<!-- Menampilkan data kartu dalam bentuk tabel -->
 <table class="table table-striped">
     <tbody>
         <tr>
@@ -25,20 +25,20 @@ require_once '../dbkoneksi.php';
             <td><?= $row['id'] ?></td>
         </tr>
         <tr>
-            <td>Nomor</td>
-            <td><?= $row['nomor'] ?></td>
+            <td>Kode</td>
+            <td><?= $row['kode'] ?></td>
         </tr>
         <tr>
-            <td>Nama Produk</td>
+            <td>Nama</td>
             <td><?= $row['nama'] ?></td>
         </tr>
         <tr>
-            <td>Kota</td>
-            <td><?= $row['kota'] ?></td>
+            <td>Diskon</td>
+            <td><?= $row['diskon'] ?></td>
         </tr>
         <tr>
-            <td>Kontak</td>
-            <td><?= $row['kontak'] ?></td>
+            <td>Iuran</td>
+            <td><?= $row['iuran'] ?></td>
         </tr>
     </tbody>
 </table>
