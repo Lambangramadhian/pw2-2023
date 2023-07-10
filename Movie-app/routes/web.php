@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +23,11 @@ Route::get('/', function () {
 });
 */
 
-
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/movies', function () {
     return view('movies/movie');
@@ -79,4 +81,4 @@ Route::put('/genres/{genre}', [GenreController::class, 'update']);
 
 Route::put('/reviews/{review}', [ReviewController::class, 'update']);
 
-Route::get('/', [HomeController::class, 'index']);
+
