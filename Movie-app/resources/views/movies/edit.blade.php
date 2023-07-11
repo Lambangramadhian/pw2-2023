@@ -30,7 +30,8 @@
                 <input type="text" id="title" name="title" value="{{ $movie->title }}"><br><br>
 
                 <label for="poster">Poster:</label><br>
-                <input type="text" id="poster" name="poster" value="{{ $movie->poster }}"><br><br>
+                <img style="width: 100px" src="/assets/img/{{$movie->poster}}" alt="">
+                <input type="file" id="poster" name="poster"><br><br>
 
                 <label for="genre_id">Genre:</label><br>
                 <select id="genre_id" name="genre_id">

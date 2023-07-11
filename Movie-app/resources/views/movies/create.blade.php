@@ -31,10 +31,10 @@
                 </div>
                 <div>
                     <label for="poster">Poster:</label>
-                    <input type="text" id="poster" name="poster">
+                    <input type="file" id="poster" name="poster">
                 </div>
                 <div>
-                    <label for="genre">Genre:</label>
+                    <label for="genre">Genre ID:</label>
                     <select id="genre" name="genre_id">
                         @foreach ($genres as $genre)
                         <option value="{{ $genre->id }}">{{ $genre->nama }}</option>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Movie;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -33,16 +34,23 @@ public function create()
         //
         $validatedData = $request->validate([
             'title' => 'required',
-            'poster' => 'required',
+            'poster' => 'required|image',
             'genre_id' => 'required',
             'country' => 'required',
             'year' => 'required|integer',
             'rating' => 'required|numeric',
-    ]);
-
-    Movie::create($validatedData);
-
-    return redirect('/movies')->with('success', 'Movie added successfully!');
+        ]);
+    
+        // Upload the image
+        if ($request->hasFile('poster')) {
+            $imageName = time() . '.' . $request->file('poster')->getClientOriginalExtension();
+            $request->file('poster')->storeAs('assets/img', $imageName, 'public');
+            $validatedData['poster'] = $imageName;
+        }
+    
+        Movie::create($validatedData);
+    
+        return redirect('/movies')->with('success', 'Movie added successfully!');
     }
 
     /**
@@ -59,6 +67,9 @@ public function create()
     public function edit(Movie $movie)
     {
         //
+        $movies = Movie::all();
+
+        return view('movies.edit', compact('movie', 'movies'));
     }
 
     /**
@@ -69,12 +80,23 @@ public function create()
         //
         $validatedData = $request->validate([
             'title' => 'required',
-            'poster' => 'required',
+            'poster' => 'nullable|image',
             'genre_id' => 'required',
             'country' => 'required',
             'year' => 'required|integer',
             'rating' => 'required|numeric',
         ]);
+    
+        // Check if a new image is uploaded
+        if ($request->hasFile('poster')) {
+            // Delete the old image
+            Storage::disk('public')->delete('assets/img/' . $movie->poster);
+    
+            // Upload the new image
+            $imageName = time() . '.' . $request->file('poster')->getClientOriginalExtension();
+            $request->file('poster')->storeAs('assets/img', $imageName, 'public');
+            $validatedData['poster'] = $imageName;
+        }
     
         $movie->update($validatedData);
     
